@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+
+################################################################
+# Andy Zelenak, 2017
+# Call a service to get a 3D point of interest. Use look_at_pose
+# to calculate a new camera position, looking at that point.
+# Move the arm to rotate the camera there.
+################################################################
+
+
+import rospy
+from geometry_msgs.msg import Vector3Stamped
+
+if __name__ == '__main__':
+  pub = rospy.Publisher('rviz_textured_sphere/get_pt', Vector3Stamped, queue_size=1)
+  rospy.init_node('test_rotate_cam')
+  rate = rospy.Rate(0.1) # in Hz
+
+  pt = Vector3Stamped()
+  pt.header.frame_id = 'base_link'
+  while not rospy.is_shutdown():
+    pt.vector.x = pt.vector.x+0.1
+    pub.publish(pt)
+    rate.sleep()
