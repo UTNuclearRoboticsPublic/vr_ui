@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(vr_ui)
 
-find_package(catkin REQUIRED COMPONENTS geometry_msgs look_at_pose rospy std_msgs roscpp std_srvs)
+find_package(catkin REQUIRED COMPONENTS geometry_msgs look_at_pose video_stream_opencv rviz_textured_sphere rviz_plugin_osvr rospy std_msgs roscpp std_srvs)
 
 catkin_package(CATKIN_DEPENDS roscpp INCLUDE_DIRS)
 

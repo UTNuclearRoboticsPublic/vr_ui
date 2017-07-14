@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="video_src_from_bag" default="true"/>                                                                  
+
+  <node pkg="rviz" type="rviz" name="rviz"
+      args="-l -d $(find rviz_textured_sphere)/rviz_cfg/rviz_textured_sphere.rviz"
+      output="screen"/>
+
+  <arg name="robot_namespace" default="/"/>                                                                  
+  <arg name="laser_enabled" default="$(optenv HUSKY_LMS1XX_ENABLED false)"/>
+  <arg name="kinect_enabled" default="$(optenv HUSKY_KINECT_ENABLED false)"/>
+  <arg name="urdf_extras" default="$(optenv HUSKY_URDF_EXTRAS)"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find vaultbot_description)/urdf/vaultbot_robot.urdf.xacro'"/>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+	  <param name="/use_gui" value="false"/>
+  </node>
+
+  <node name="osvr_server" pkg="rviz_plugin_osvr" type="start_osvr_server.sh" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+
+  <node if="$(arg video_src_from_bag)" pkg="rosbag" type="play" name="play_360_video" args="-l $(find vr_ui)/bag/360Stream.bag" />
+
+  <group unless="$(arg video_src_from_bag)">
+	  <node pkg="usb_cam" type="usb_cam_node" name="front_camera">
+		  <param name="video_device" value="/dev/video1" />
+		  <param name="image_width" value="1440" />
+		  <param name="image_height" value="1440" />
+		  <param name="pixel_format" value="mjpeg" />
+		  <param name="camera_frame_id" value="front_camera_frame" />
+		  <param name="io_method" value="mmap" />
+	  </node>
+
+	  <node pkg="usb_cam" type="usb_cam_node" name="rear_camera">
+		  <param name="video_device" value="/dev/video2" />
+		  <param name="image_width" value="1440" />
+		  <param name="image_height" value="1440" />
+		  <param name="pixel_format" value="mjpeg" />
+		  <param name="camera_frame_id" value="rear_camera_frame" />
+		  <param name="io_method" value="mmap" />
+	  </node>
+  </group>
+  <!--include file="$(find video_stream_opencv)/launch/camera.launch" >
+		<arg name="camera_name" value="webcam1" />
+	  	<arg name="video_stream_provider" value="1" />
+	  	<arg name="fps" value="15" />
+	  	<arg name="frame_id" value="webcam_optical_frame_1" />
+	  	<arg name="camera_info_url" value="" />
+	  	<arg name="flip_horizontal" value="false" />
+	  	<arg name="flip_vertical" value="false" />
+	    <arg name="width" value="2880"/>
+	    <arg name="height" value="2880"/>
+	  	<arg name="visualize" value="false" />
+  </include-->
+
+   <!--include file="$(find video_stream_opencv)/launch/camera.launch" >
+	  	<arg name="camera_name" value="webcam2" />
+	  	<arg name="video_stream_provider" value="2" />
+	  	<arg name="fps" value="15" />
+	  	<arg name="frame_id" value="webcam_optical_frame_2" />
+	  	<arg name="camera_info_url" value="" />
+	  	<arg name="flip_horizontal" value="false" />
+	  	<arg name="flip_vertical" value="false" />
+	    <arg name="width" value="2880"/>
+	    <arg name="height" value="2880"/>
+	  	<arg name="visualize" value="false" />
+  </include-->
+
+</launch>
