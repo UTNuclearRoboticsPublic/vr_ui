@@ -27,8 +27,8 @@
   <group unless="$(arg video_src_from_bag)">
 	  <node pkg="usb_cam" type="usb_cam_node" name="front_camera">
 		  <param name="video_device" value="/dev/video1" />
-		  <param name="image_width" value="1440" />
-		  <param name="image_height" value="1440" />
+		  <param name="image_width" value="2880" />
+		  <param name="image_height" value="2880" />
 		  <param name="pixel_format" value="mjpeg" />
 		  <param name="camera_frame_id" value="front_camera_frame" />
 		  <param name="io_method" value="mmap" />
@@ -36,37 +36,11 @@
 
 	  <node pkg="usb_cam" type="usb_cam_node" name="rear_camera">
 		  <param name="video_device" value="/dev/video2" />
-		  <param name="image_width" value="1440" />
-		  <param name="image_height" value="1440" />
+		  <param name="image_width" value="2880" />
+		  <param name="image_height" value="2880" />
 		  <param name="pixel_format" value="mjpeg" />
 		  <param name="camera_frame_id" value="rear_camera_frame" />
 		  <param name="io_method" value="mmap" />
 	  </node>
   </group>
-  <!--include file="$(find video_stream_opencv)/launch/camera.launch" >
-		<arg name="camera_name" value="webcam1" />
-	  	<arg name="video_stream_provider" value="1" />
-	  	<arg name="fps" value="15" />
-	  	<arg name="frame_id" value="webcam_optical_frame_1" />
-	  	<arg name="camera_info_url" value="" />
-	  	<arg name="flip_horizontal" value="false" />
-	  	<arg name="flip_vertical" value="false" />
-	    <arg name="width" value="2880"/>
-	    <arg name="height" value="2880"/>
-	  	<arg name="visualize" value="false" />
-  </include-->
-
-   <!--include file="$(find video_stream_opencv)/launch/camera.launch" >
-	  	<arg name="camera_name" value="webcam2" />
-	  	<arg name="video_stream_provider" value="2" />
-	  	<arg name="fps" value="15" />
-	  	<arg name="frame_id" value="webcam_optical_frame_2" />
-	  	<arg name="camera_info_url" value="" />
-	  	<arg name="flip_horizontal" value="false" />
-	  	<arg name="flip_vertical" value="false" />
-	    <arg name="width" value="2880"/>
-	    <arg name="height" value="2880"/>
-	  	<arg name="visualize" value="false" />
-  </include-->
-
 </launch>
