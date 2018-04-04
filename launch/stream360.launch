@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <launch>
-    <arg name="res" default="1440">
-    <node pkg="vr_ui" type="vr_ui_node" name="front_camera">
+    <arg name="res" default="1440"/>
+    <node pkg="usb_cam" type="vr_ui_node" name="front_camera">
         <param name="video_device" value="/dev/video0" />    
         <param name="image_width" value="$(arg res)" />    
         <param name="image_height" value="$(arg res)" />
@@ -10,7 +10,7 @@
         <param name="io_method" value="mmap" />
     </node>
 
-    <node pkg="vr_ui" type="vr_ui_node" name="rear_camera">
+    <node pkg="usb_cam" type="vr_ui_node" name="rear_camera">
         <param name="video_device" value="/dev/video2" />    
         <param name="image_width" value="$(arg res)" />    
         <param name="image_height" value="$(arg res)" />
@@ -18,4 +18,4 @@
         <param name="camera_frame_id" value="rear_camera_frame" />
         <param name="io_method" value="mmap" />
     </node>
- </launch>
+</launch>
