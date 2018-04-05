@@ -18,4 +18,7 @@
         <param name="camera_frame_id" value="rear_camera_frame" />
         <param name="io_method" value="mmap" />
     </node>
+
+    <node pkg="image_transport" type="republish" name="front_cam_republish" args="compressed in:=/front_camera/image_raw raw out:=/front_2/image" />
+    <node pkg="image_transport" type="republish" name="rear_cam_republish" args="compressed in:=/rear_camera/image_raw raw out:=/rear_2/image" />
 </launch>
